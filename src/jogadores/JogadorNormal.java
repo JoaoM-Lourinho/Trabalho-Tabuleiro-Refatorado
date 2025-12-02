@@ -8,13 +8,8 @@ public class JogadorNormal extends Jogador{
 
     @Override
     public int rolarDados() {
-        this.ultimonumerodado1 = dado.nextInt(6) + 1;
-        this.ultimonumerodado2 = dado.nextInt(6) + 1;
-        return ultimonumerodado1 + ultimonumerodado2;
-    }
-
-    @Override
-    public boolean isNormal() {
-        return true;
+        this.ultimoNumeroDado1 = dado.nextInt(6) + 1;
+        this.ultimoNumeroDado2 = dado.nextInt(6) + 1;
+        return ultimoNumeroDado1 + ultimoNumeroDado2;
     }
 }

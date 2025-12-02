@@ -1,8 +1,7 @@
 package casas;
 
 import jogadores.*;
-import jogo.Imprimir;
-import jogo.MetodosEstaticos;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public class CasaVoltarInicio extends Casa {
@@ -11,14 +10,10 @@ public class CasaVoltarInicio extends Casa {
     }
 
     @Override
-    public void executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
-        Imprimir.imprimirCasaVoltarAoInicio(jogador, numeroDaCasa);
-        int indiceEscolhido;
-
-        indiceEscolhido = MetodosEstaticos.escolherJogadorParaPunir(tabuleiro.getJogadores(), jogador);
-        tabuleiro.voltarAoInicio(indiceEscolhido);
-        Jogador jogadorAlvo = tabuleiro.getJogadores().get(indiceEscolhido);
-        Imprimir.imprimirJogadorVoltouAoInicio(jogadorAlvo);
+    public ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
+        tabuleiro.processarPunicao(jogador);
         
+        String mensagem = String.format("Jogador %s está na casa %d. Você deve punir outro jogador, que voltará ao início!", jogador.getCor(), this.numeroDaCasa);
+        return new ResultadoDaAcao(mensagem, jogador, jogador.getCasaDoTabuleiro());
     }
 }

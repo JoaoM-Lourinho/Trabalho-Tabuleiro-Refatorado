@@ -1,7 +1,7 @@
 package casas;
 
 import jogadores.*;
-import jogo.Imprimir;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public class CasaDaSorte extends Casa {
@@ -10,17 +10,16 @@ public class CasaDaSorte extends Casa {
     }
 
     @Override
-    public void executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
-         if (!jogador.isAzarado()) {
-            int casaAtual = jogador.getCasadotabuleiro();
-            int novaCasa = casaAtual + 3;
-            if (novaCasa >= 39) { // se a nova casa for maior ou igual a última casa (39)
-            novaCasa = 39; // trava o jogador na última casa
-            }
-            jogador.setCasadotabuleiro(novaCasa);
-            Imprimir.imprimirCasaDaSorteNaoAzarado(jogador);
+    public ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
+        int novaCasa = jogador.avancarCasaDaSorte(); 
+        
+        String mensagem;
+        if (jogador instanceof JogadorAzarado) {
+            mensagem = String.format("Jogador %s tá na casa %d. Caiu na Casa da Sorte, mas por ser azarado, nada acontece.", jogador.getCor(), this.numeroDaCasa);
         } else {
-            Imprimir.imprimirCasaDaSorteAzarado(jogador, this.numeroDaCasa);
+            mensagem = String.format("Sorte grande! Jogador %s avanca 3 casas! Ele vai para a casa %d", jogador.getCor(), jogador.getCasaDoTabuleiro() + 1);
         }
+
+        return new ResultadoDaAcao(mensagem, jogador, novaCasa);
     }
 }

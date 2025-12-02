@@ -1,7 +1,7 @@
 package casas;
 
 import jogadores.*;
-import jogo.Imprimir;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public class CasaSurpresa extends Casa {
@@ -10,12 +10,14 @@ public class CasaSurpresa extends Casa {
     }
 
     @Override
-    public void executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
-        Imprimir.imprimirCasaSurpresaChegada(jogador, numeroDaCasa);
+    public ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
         
         Class<? extends Jogador> novoTipo = tabuleiro.sortearNovaSorte(jogador);
 
         Jogador novoJogador = tabuleiro.TrocarTipoJogador(jogador, novoTipo);
-        Imprimir.imprimirCasaSurpresaResultado(novoJogador);
+        
+        String mensagem = String.format("Jogador %s está na casa %d. SURPRESA! Você teve seu tipo alterado para %s!", jogador.getCor(), this.numeroDaCasa, novoJogador.getClass().getSimpleName());
+        
+        return new ResultadoDaAcao(mensagem, novoJogador, novoJogador.getCasaDoTabuleiro(), true);
     }
 }

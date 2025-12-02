@@ -1,7 +1,7 @@
 package casas;
 
 import jogadores.*;
-import jogo.Imprimir;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public class CasaNormal extends Casa {
@@ -10,7 +10,8 @@ public class CasaNormal extends Casa {
     }
 
     @Override
-    public void executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
-        Imprimir.imprimirCasaNormal(jogador, numeroDaCasa);
+    public ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
+        String mensagem = String.format("Jogador %s está na casa %d. Nada acontece.", jogador.getCor(), this.numeroDaCasa);
+        return new ResultadoDaAcao(mensagem, jogador, jogador.getCasaDoTabuleiro());
     }
 }

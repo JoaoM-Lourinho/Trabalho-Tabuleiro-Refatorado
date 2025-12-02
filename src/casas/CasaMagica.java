@@ -1,7 +1,7 @@
 package casas;
 
 import jogadores.*;
-import jogo.Imprimir;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public class CasaMagica extends Casa {
@@ -10,12 +10,22 @@ public class CasaMagica extends Casa {
     }
 
     @Override
-    public void executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
+    public ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
+        String mensagem;
+        
         if(tabuleiro.isUltimo(jogador)) {
-            Imprimir.imprimirCasaMagicaUltimo(jogador, this.numeroDaCasa);
+            mensagem = String.format("Jogador %s está na casa %d. Ela é uma casa mágica e o jogador deve trocar com o último! Ops... ele já é o último. Nada acontece.", jogador.getCor(), this.numeroDaCasa);
         } else {
             tabuleiro.substituirJogador(jogador);
-            Imprimir.imprimirCasaMagicaNaoUltimo(jogador, this.numeroDaCasa);
+            int indiceUltimo = tabuleiro.obterJogadorMaisAtras();
+            Jogador jogadorQueEstavaUltimo = tabuleiro.getJogadores().get(indiceUltimo);
+
+            mensagem = String.format("Jogador %s está na casa %d. Você trocou de posição com o jogador %s. Ambos mudaram de casa!", 
+                                     jogador.getCor(), 
+                                     this.numeroDaCasa, 
+                                     jogadorQueEstavaUltimo.getCor());
         }
-    }
+
+        return new ResultadoDaAcao(mensagem, jogador, jogador.getCasaDoTabuleiro(), false);
+    }    
 }

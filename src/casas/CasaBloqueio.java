@@ -1,7 +1,7 @@
 package casas;
 
 import jogadores.*;
-import jogo.Imprimir;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public class CasaBloqueio extends Casa {
@@ -10,8 +10,10 @@ public class CasaBloqueio extends Casa {
     }
     
     @Override
-    public void executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
-        Imprimir.imprimirCasaBloqueio(jogador, this.numeroDaCasa);
+    public ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro) {
         jogador.bloquear();
+
+        String mensagem = String.format("Jogador %s está na casa %d. Que pena! Você foi bloqueado e perderá a próxima rodada.", jogador.getCor(), this.numeroDaCasa + 1);
+        return new ResultadoDaAcao(mensagem, jogador, jogador.getCasaDoTabuleiro());
     }
 }

@@ -1,6 +1,7 @@
 package casas;
 
 import jogadores.*;
+import jogo.ResultadoDaAcao;
 import jogo.Tabuleiro;
 
 public abstract class Casa {
@@ -14,5 +15,5 @@ public abstract class Casa {
         return numeroDaCasa;
     }
 
-    public abstract void executarAcao(Jogador jogador, Tabuleiro tabuleiro);
+    public abstract ResultadoDaAcao executarAcao(Jogador jogador, Tabuleiro tabuleiro);
 }

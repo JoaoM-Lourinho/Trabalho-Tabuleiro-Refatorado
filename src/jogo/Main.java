@@ -1,28 +1,26 @@
 package jogo;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import jogadores.*;
 
 
 public class Main {
     static boolean sair = false;
     public static void main(String[] args) {
-        Scanner teclado = new Scanner (System.in);
-        MetodosEstaticos.imprimirTitulo("SEJA BEM VINDO AO TABULEIRO POO!!!");
+        ConsoleUtils.imprimirTitulo("SEJA BEM VINDO AO TABULEIRO POO!!!");
         
         do{
-            MetodosEstaticos.imprimirInicio();
-            int alternativa = teclado.nextInt();
+            ConsoleUtils.imprimirInicio();
+            int alternativa = ConsoleUtils.lerInteiro();
             switch (alternativa) {
                 case 1 -> {
-                    ArrayList<Jogador> jogadores = MetodosEstaticos.configurarNovoJogo();
+                    ArrayList<Jogador> jogadores = ConsoleUtils.configurarNovoJogo();
                     Jogo novojogo = new Jogo(jogadores, false);
                     novojogo.iniciar(false);
                 }
                 
                 case 2 -> {
-                    ArrayList<Jogador> jogadores = MetodosEstaticos.configurarNovoJogo();
+                    ArrayList<Jogador> jogadores = ConsoleUtils.configurarNovoJogo();
                     Jogo novojogo = new Jogo(jogadores, true);
                     novojogo.iniciar(true);
                 }
@@ -36,6 +34,5 @@ public class Main {
             }
 
         }while(!sair);
-        teclado.close();
     }
 }
